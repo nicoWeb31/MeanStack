@@ -1,8 +1,7 @@
 
-import { Component, EventEmitter,Output } from '@angular/core';
-//EventEmitter for emit event
-import { Post } from '../post.model';
+import { Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-create',
@@ -13,22 +12,20 @@ export class PostCreateComponent {
   contentPost ='';
   enteredTitle = '';
 
-  //event emoiter, output for transfer data from to outsid (to app component) tag<Post>
-  @Output() postCreated = new EventEmitter<Post>();
+  constructor(
+    //injection du serveice
+    public postServ: PostsService){
+
+  }
+
 
 
   onAddPost(form: NgForm){
 
     if(form.invalid) return;
 
-      const post: Post = {
-
-        title: form.value.title,
-        content: form.value.content
-      };
-      //emit the new post
-      console.log(post)
-      this.postCreated.emit(post);
+    this.postServ.addPosts(form.value.title,form.value.content);
+    form.resetForm();
 
   }
 
