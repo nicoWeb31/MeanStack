@@ -1,17 +1,40 @@
 <h2>Create New post </h2>
 
 <mat-card>
-  <mat-form-field>
-    <textarea [(ngModel)]="contentPost" matInput ></textarea>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm" >
 
-    <button mat-raised-button
-    color='primary'
-    (click)="onAddPost()"
-    >Save post</button>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput
+      type="text"
+      ngModel
+      required
+      #title="ngModel"
+      name="title">
+      <mat-error *ngIf="title.invalid">please enter a post title</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+      ngModel
+      name="content"
+      required
+      #content="ngModel"
+      matInput >
+    </textarea>
+    <mat-error *ngIf="content.invalid">please enter a post content</mat-error>
+
+      <button mat-raised-button
+      color='primary'
+      type="submit"
+      >Save post</button>
+    </mat-form-field>
+
+
+  </form>
+
 </mat-card>
 
 
 
 
-<p>{{newPost}}</p>
+<p></p>
